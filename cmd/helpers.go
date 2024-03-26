@@ -1,6 +1,7 @@
 package main
 
 import (
+	"strconv"
 	"strings"
 	"time"
 )
@@ -18,7 +19,7 @@ func generateSlug(title string) string {
 
 	for _, checklist := range checklists {
 		if checklist.ID == slug {
-			slug = slug + time.Now().String()
+			slug = slug + strconv.FormatInt(time.Now().UnixNano(), 10)
 			break
 		}
 	}
