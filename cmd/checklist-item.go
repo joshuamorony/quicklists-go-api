@@ -70,15 +70,15 @@ func editChecklistItemByID(c *gin.Context) {
 		return
 	}
 
-	for _, checklistItem := range checklistItems {
+	for i, checklistItem := range checklistItems {
 		if checklistItem.ID == id {
 			if editChecklistItem.Title != nil {
-				checklistItem.Title = *editChecklistItem.Title
+				checklistItems[i].Title = *editChecklistItem.Title
 			}
 			if editChecklistItem.Checked != nil {
-				checklistItem.Checked = *editChecklistItem.Checked
+				checklistItems[i].Checked = *editChecklistItem.Checked
 			}
-			c.IndentedJSON(http.StatusOK, checklistItem)
+			c.IndentedJSON(http.StatusOK, checklistItems[i])
 			return
 		}
 	}
