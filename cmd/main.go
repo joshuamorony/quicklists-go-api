@@ -15,7 +15,11 @@ var (
 func main() {
 	router := gin.Default()
 
-	router.Use(cors.Default())
+	config := cors.Options{
+		AllowedMethods: []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+	}
+
+	router.Use(cors.New(config))
 	router.GET("/checklists", getChecklists)
 	router.POST("/checklists", addChecklist)
 
@@ -24,7 +28,7 @@ func main() {
 	router.DELETE("/checklists/:id", removeChecklistByID)
 	router.POST("/checklists/:id/reset", resetChecklistByID)
 
-	router.GET("/checklist-items/:id", getItemsByChecklistID)
+	router.GET("/checklist-items", getChecklistItems)
 	router.POST("/checklist-items", addChecklistItem)
 	router.POST("/checklist-items/:id", editChecklistItemByID)
 	router.DELETE("/checklist-items/:id", removeChecklistItemByID)

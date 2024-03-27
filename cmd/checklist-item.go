@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -21,6 +22,10 @@ type AddChecklistItem struct {
 type EditChecklistItem struct {
 	Title   *string `json:"title,omitempty"`
 	Checked *bool   `json:"checked,omitempty"`
+}
+
+func getChecklistItems(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, checklistItems)
 }
 
 func getItemsByChecklistID(c *gin.Context) {
@@ -47,7 +52,7 @@ func addChecklistItem(c *gin.Context) {
 	}
 
 	newChecklistItem := ChecklistItem{
-		ID:          time.Now().String(),
+		ID:          strconv.FormatInt(time.Now().UnixNano(), 10),
 		ChecklistID: id,
 		Title:       checklistItemToAdd.Title,
 		Checked:     false,
