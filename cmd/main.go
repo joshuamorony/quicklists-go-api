@@ -24,13 +24,13 @@ func main() {
 	router.POST("/checklists", addChecklist)
 
 	router.GET("/checklists/:id", getChecklistByID)
-	router.PUT("/checklists/:id", editChecklistByID)
+	router.PATCH("/checklists/:id", editChecklistByID)
 	router.DELETE("/checklists/:id", removeChecklistByID)
 	router.POST("/checklists/:id/reset", resetChecklistByID)
 
 	router.GET("/checklist-items", getChecklistItems)
 	router.POST("/checklist-items/:id", addChecklistItem)
-	router.PUT("/checklist-items/:id", editChecklistItemByID)
+	router.PATCH("/checklist-items/:id", editChecklistItemByID)
 	router.DELETE("/checklist-items/:id", removeChecklistItemByID)
 
 	router.Run("localhost:8080")
