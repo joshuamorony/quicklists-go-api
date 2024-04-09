@@ -1,9 +1,6 @@
 package main
 
 import (
-	"time"
-
-	"github.com/alexedwards/scs/v2"
 	"github.com/gin-gonic/gin"
 	cors "github.com/rs/cors/wrapper/gin"
 )
@@ -15,14 +12,9 @@ var (
 	checklistItems = []ChecklistItem{}
 )
 
-var sm *scs.SessionManager
+var sessionStore = make(map[string]bool)
 
 func main() {
-	sm = scs.New()
-	sm.Cookie.Secure = true
-	sm.Cookie.HttpOnly = true
-	sm.Lifetime = 24 * time.Hour
-
 	router := gin.Default()
 
 	config := cors.Options{
@@ -33,12 +25,11 @@ func main() {
 	}
 
 	router.Use(cors.New(config))
-	router.Use(Adapt())
 
 	router.POST("/login", login)
 
 	protectedRoutes := router.Group("/")
-	protectedRoutes.Use(Authorize())
+	protectedRoutes.Use(requireAuth())
 	{
 		protectedRoutes.POST("/logout", logout)
 
