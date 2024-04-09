@@ -3,6 +3,7 @@ module example/quicklists-api
 go 1.21.6
 
 require (
+	github.com/alexedwards/scs/v2 v2.8.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/rs/cors/wrapper/gin v0.0.0-20240228164225-8d33ca4794ea
 )
